@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04070a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>SniperLoot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="s-login" class="screen">
+  <div class="login-bg-glow"></div>
+  <h1 class="game-title">SNIPER<span>LOOT</span></h1>
+  <div class="sub-title">CRASH · SHOOT · WIN</div>
+  <div class="login-card">
+
+    <button class="btn-google" id="google-signin-btn">
+      <svg width="20" height="20" viewBox="0 0 48 48" style="vertical-align:middle;margin-right:10px">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        <path fill="none" d="M0 0h48v48H0z"/>
+      </svg>
+      SIGN IN WITH GOOGLE
+    </button>
+
+    <div class="divider"></div>
+
+    <button class="btn-outline" id="open-deposit-btn">
+      <span class="mpesa-pill">M</span> DEPOSIT VIA M-PESA
+    </button>
+    <div class="login-note">
+      SIGN IN TO PLAY · 1 KES = 1 LOOT<br>
+      MIN BET: 5 · DEPOSIT MIN: 50 KES
+    </div>
+  </div>
+</div>
+
+<!-- ══ USERNAME (first sign-in only) ══ -->
+<div id="s-username" class="screen hidden">
+  <div class="login-bg-glow"></div>
+  <h1 class="game-title">SNIPER<span>LOOT</span></h1>
+  <div class="sub-title">CHOOSE YOUR CALL SIGN</div>
+  <div class="login-card">
+    <label class="field-label">CALL SIGN (3–18 CHARS)</label>
+    <input id="username-input" type="text" class="field-input" maxlength="18"
+           placeholder="E.G. SHADOW_OPS" autocomplete="off" spellcheck="false">
+    <div id="username-err" class="err-msg"></div>
+    <button class="btn-green" id="username-submit">▶ ENTER GAME</button>
+  </div>
+</div>
+
+<!-- ══ M-PESA MODAL ══ -->
+<div id="s-mpesa" class="screen hidden">
+  <div class="mpesa-card">
+    <div class="mpesa-header">
+      <div class="mpesa-logo-wrap">
+        <div class="mpesa-icon">M</div>
+        <div>
+          <div class="mpesa-brand">M-PESA</div>
+          <div class="mpesa-sub">LIPA NA M-PESA · STK PUSH</div>
+        </div>
+      </div>
+      <button class="close-x" id="mpesa-close">✕</button>
+    </div>
+
+    <div class="mpesa-tabs">
+      <button class="mpesa-tab tab-active" id="tab-deposit">📲 DEPOSIT</button>
+      <button class="mpesa-tab" id="tab-withdraw">💸 WITHDRAW</button>
+    </div>
+
+    <div class="mpesa-body">
+
+      <!-- Deposit -->
+      <div id="deposit-panel" style="display:flex;flex-direction:column;gap:4px">
+        <label class="field-label">SAFARICOM NUMBER</label>
+        <input class="mpesa-field" id="mpesa-phone" type="tel"
+               placeholder="07XXXXXXXX" maxlength="13" inputmode="numeric">
+        <label class="field-label" style="margin-top:14px">AMOUNT (KES) — MIN 50 · MAX 50,000</label>
+        <input class="mpesa-field" id="mpesa-amount" type="number"
+               placeholder="100" min="50" max="50000" inputmode="numeric">
+        <div class="amt-presets">
+          <button class="amt-btn" data-a="50">50</button>
+          <button class="amt-btn" data-a="100">100</button>
+          <button class="amt-btn" data-a="200">200</button>
+          <button class="amt-btn" data-a="500">500</button>
+          <button class="amt-btn" data-a="1000">1K</button>
+        </div>
+      </div>
+
+      <!-- Withdraw -->
+      <div id="withdraw-panel" style="display:none;flex-direction:column;gap:4px">
+        <label class="field-label">SAFARICOM NUMBER</label>
+        <input class="mpesa-field" id="withdraw-phone" type="tel"
+               placeholder="07XXXXXXXX" maxlength="13" inputmode="numeric">
+        <label class="field-label" style="margin-top:14px">AMOUNT (KES) — MIN 50 · MAX 50,000</label>
+        <input class="mpesa-field" id="withdraw-amount" type="number"
+               placeholder="100" min="50" max="50000" inputmode="numeric">
+        <div class="amt-presets">
+          <button class="amt-btn" data-a="50">50</button>
+          <button class="amt-btn" data-a="100">100</button>
+          <button class="amt-btn" data-a="200">200</button>
+          <button class="amt-btn" data-a="500">500</button>
+          <button class="amt-btn" data-a="1000">1K</button>
+        </div>
+        <div class="withdraw-note">⚠ Requires production Daraja credentials on backend</div>
+      </div>
+
+      <div id="mpesa-status" class="mpesa-status"></div>
+      <button class="btn-green wide" id="mpesa-pay-btn">📲 SEND STK PUSH</button>
+      <button class="btn-outline wide" id="mpesa-cancel">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GAME ══ -->
+<div id="s-game" class="hidden game-wrap">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div id="logo">SNIPER<span>LOOT</span></div>
+    <div id="phase" class="phase-badge">● WAIT</div>
+    <div id="wallet-box" class="wallet-box" title="Tap to deposit/withdraw">
+      <span class="wallet-user" id="user-label"></span>
+      <span class="wallet-icon">💰</span>
+      <span id="wallet-val" class="wallet-val">0</span>
+      <span class="wallet-unit">LOOT</span>
+      <span class="dep-pill">+DEP</span>
+    </div>
+    <button id="signout-btn" class="signout-btn" title="Sign out">⏏</button>
+  </div>
+
+  <!-- ARENA -->
+  <div id="arena">
+    <canvas id="canvas"></canvas>
+    <div id="mult-wrap">
+      <div class="mult-label">MULTIPLIER</div>
+      <div id="mult-val" class="mult-val">1.00X</div>
+    </div>
+    <div id="stats-bar">
+      <div class="stat-pill"><span class="sk">RND</span><span class="sv" id="st-rounds">0</span></div>
+      <div class="stat-pill"><span class="sk">BEST</span><span class="sv" id="st-best">—</span></div>
+      <div class="stat-pill"><span class="sk">WIN%</span><span class="sv" id="st-win">—</span></div>
+    </div>
+    <div id="o-blast" class="overlay-blast" style="display:none">
+      <div class="blast-shockwave"></div>
+      <h2 class="blast-title">💀 SHOT!</h2>
+      <p id="blast-sub" class="blast-sub">SNIPER GOT YOUR LOOT</p>
+    </div>
+    <div id="o-win" class="overlay-win" style="display:none">
+      <h2 class="win-title">💰 CASHED!</h2>
+      <p id="win-sub" class="win-sub">+0 LOOT</p>
+    </div>
+    <div id="touch-hint" class="touch-hint" style="display:none">TAP SCREEN · CASH OUT</div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div id="bottom">
+    <div id="bet-block">
+      <label class="field-label">BET (MIN 5)</label>
+      <input id="bet-input" type="number" class="bet-input" min="5" max="999999"
+             value="50" inputmode="numeric">
+      <div id="presets" class="presets">
+        <button class="preset-btn" data-v="5">5</button>
+        <button class="preset-btn" data-v="50">50</button>
+        <button class="preset-btn" data-v="200">200</button>
+        <button class="preset-btn" data-v="half">½</button>
+        <button class="preset-btn" data-v="max">MAX</button>
+      </div>
+    </div>
+    <div id="action-area">
+      <div id="countdown-bar" class="countdown-bar" style="display:none">
+        <span class="cdown-txt">NEXT IN</span>
+        <span id="countdown-num" class="cdown-num">5s</span>
+      </div>
+      <button id="action-btn" class="action-btn disabled">⏳ WAIT</button>
+      <button id="skip-btn" class="skip-btn" style="display:none">SKIP</button>
+    </div>
+    <div id="history" class="history">
+      <span class="hist-label">LAST:</span>
+    </div>
+  </div>
+
+  <!-- LIVE BETS FEED -->
+  <div id="live-bets-panel">
+    <div class="lb-header">
+      <span class="lb-title">🎯 LIVE BETS</span>
+      <span class="lb-col-head">BET</span>
+      <span class="lb-col-head">MULT</span>
+      <span class="lb-col-head">PROFIT</span>
+    </div>
+    <div id="live-bets-body"></div>
+  </div>
+
+</div>
+
+<!-- Supabase JS v2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<!-- App scripts — ORDER MATTERS -->
+<script src="js/config.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/socket.js"></script>
+<script src="js/mpesa.js"></script>
+<script src="js/livebets.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
