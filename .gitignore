@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+node_modules/
+# config.js contains real keys — gitignore a local override if you use one
+# public/js/config.local.js
